@@ -23,6 +23,9 @@ from discord.ext import commands
 import config
 from utils import database as db
 
+# Ensure data directory exists before logging initialisation
+os.makedirs("data", exist_ok=True)
+
 # ── logging ───────────────────────────────────────────────────────────────────
 
 logging.basicConfig(

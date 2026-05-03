@@ -173,10 +173,20 @@ class AutoRoles(commands.Cog):
         if not interaction.guild:
             return
 
-        asyncio.create_task(self.check_all_members(interaction.guild))
+        asyncio.get_event_loop().create_task(
+            self._run_check_with_log(interaction.guild),
+            name="autorole_manual_check",
+        )
         await interaction.followup.send(
             "✅ Auto-role check started in the background.", ephemeral=True
         )
+
+    async def _run_check_with_log(self, guild: discord.Guild) -> None:
+        try:
+            await self.check_all_members(guild)
+        except Exception as exc:
+            log = __import__("logging").getLogger("weeping_ghosts.auto_roles")
+            log.exception("Auto-role background check failed: %s", exc)
 
 
 async def setup(bot: commands.Bot) -> None:

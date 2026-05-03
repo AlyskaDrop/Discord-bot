@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import os
 import sqlite3
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any
 
 import aiosqlite
@@ -28,7 +28,7 @@ def _rows(rows: list[aiosqlite.Row]) -> list[dict]:
 
 
 def _now() -> str:
-    return datetime.utcnow().isoformat(sep=" ", timespec="seconds")
+    return datetime.now(timezone.utc).isoformat(sep=" ", timespec="seconds")
 
 
 # ── initialisation ────────────────────────────────────────────────────────────
@@ -179,9 +179,17 @@ async def create_user(discord_id: str | int, ingame_name: str = "") -> dict:
         return row  # type: ignore[return-value]
 
 
+_ALLOWED_USER_FIELDS = frozenset(
+    {"ingame_name", "corp_role", "registered_at", "verified"}
+)
+
+
 async def update_user(discord_id: str | int, **fields: Any) -> None:
     if not fields:
         return
+    invalid = set(fields) - _ALLOWED_USER_FIELDS
+    if invalid:
+        raise ValueError(f"Invalid user field(s): {invalid}")
     set_clause = ", ".join(f"{k} = ?" for k in fields)
     values = list(fields.values()) + [str(discord_id)]
     async with connect() as db:
@@ -398,6 +406,19 @@ async def get_pending_compensations() -> list[dict]:
                FROM compensations c JOIN users u ON c.user_id = u.id
                WHERE c.status = 'pending'
                ORDER BY c.requested_at""",
+        )
+        return _rows(await cur.fetchall())
+
+
+async def get_user_compensations(discord_id: str | int, limit: int = 10) -> list[dict]:
+    """Return the most recent compensation requests for a specific user."""
+    user = await get_user(discord_id)
+    if not user:
+        return []
+    async with connect() as db:
+        cur = await db.execute(
+            "SELECT * FROM compensations WHERE user_id = ? ORDER BY requested_at DESC LIMIT ?",
+            (user["id"], limit),
         )
         return _rows(await cur.fetchall())
 

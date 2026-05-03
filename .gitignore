@@ -1,0 +1,17 @@
+# Environment & secrets
+.env
+
+# Database & logs
+data/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/

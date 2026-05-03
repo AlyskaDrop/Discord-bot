@@ -95,18 +95,7 @@ class Compensation(commands.Cog):
     )
     async def comp_status(self, interaction: discord.Interaction) -> None:
         await interaction.response.defer(ephemeral=True)
-        user = await db.get_user(interaction.user.id)
-        if not user:
-            await interaction.followup.send("❌ You are not registered.", ephemeral=True)
-            return
-
-        # get all comps for this user
-        async with db.connect() as conn:
-            cur = await conn.execute(
-                "SELECT * FROM compensations WHERE user_id = ? ORDER BY requested_at DESC LIMIT 10",
-                (user["id"],),
-            )
-            rows = [dict(r) for r in await cur.fetchall()]
+        rows = await db.get_user_compensations(interaction.user.id, limit=10)
 
         embed = discord.Embed(title="🚀 Compensation Requests", colour=discord.Colour.blue())
         if not rows:
