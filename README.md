@@ -1,36 +1,36 @@
-# Weeping Ghosts — Eve Echoes Corporation Discord Bot
+# Weeping Ghosts — Discord-бот корпорации Eve Echoes
 
-A full-featured Discord bot for the **Weeping Ghosts** corporation in Eve Echoes.
+Полнофункциональный Discord-бот для корпорации **Weeping Ghosts** в Eve Echoes.
 
 ---
 
-## Features
+## Возможности
 
-| Feature | Slash Command(s) |
+| Функция | Слэш-команда(ы) |
 |---|---|
-| Screenshot-based registration | `/register` |
-| ISK extraction from screenshots | `/isk_count` |
-| PvP points tracking | `/pvp_report`, `/leaderboard` |
-| PvE points tracking | `/pve_report` |
-| Corp balance | `/balance`, `/deposit`, `/history`, `/richlist` |
-| Ship loss compensation | `/compensation`, `/comp_status` |
-| Corporation orders | `/orders`, `/order_create`, `/order_close` |
-| Corporation shop | `/shop`, `/shop_add`, `/shop_remove` |
-| Profit calculator | `/calc_profit` |
-| Implant level calculator | `/calc_implant` |
-| Mining income calculator | `/calc_mining` |
-| Production materials calculator | `/calc_production` |
-| Killboard | `/killboard`, `/post_kill` |
-| AI assistant (GHOST-AI) | `/ai`, `/ai_reset` |
-| Admin panel | `/admin_verify`, `/admin_credit`, `/admin_debit`, `/admin_give_role`, `/admin_remove_role`, `/admin_approve_kill`, `/admin_approve_comp`, `/admin_reject_comp`, `/admin_pending`, `/admin_members` |
-| Auto-role assignment | `/autorole_add`, `/autorole_remove`, `/autorole_list`, `/autorole_run` |
+| Регистрация по скриншоту | `/register` |
+| Извлечение ISK из скриншотов | `/isk_count` |
+| Учёт PvP-очков | `/pvp_report`, `/leaderboard` |
+| Учёт PvE-очков | `/pve_report` |
+| Баланс корпорации | `/balance`, `/deposit`, `/history`, `/richlist` |
+| Компенсация потери корабля | `/compensation`, `/comp_status` |
+| Задания корпорации | `/orders`, `/order_create`, `/order_close` |
+| Магазин корпорации | `/shop`, `/shop_add`, `/shop_remove` |
+| Калькулятор прибыли | `/calc_profit` |
+| Калькулятор уровня имплантов | `/calc_implant` |
+| Калькулятор дохода от майнинга | `/calc_mining` |
+| Калькулятор производственных материалов | `/calc_production` |
+| Доска убийств | `/killboard`, `/post_kill` |
+| ИИ-ассистент (GHOST-AI) | `/ai`, `/ai_reset` |
+| Панель администратора | `/admin_verify`, `/admin_credit`, `/admin_debit`, `/admin_give_role`, `/admin_remove_role`, `/admin_approve_kill`, `/admin_approve_comp`, `/admin_reject_comp`, `/admin_pending`, `/admin_members` |
+| Автоматическое присвоение ролей | `/autorole_add`, `/autorole_remove`, `/autorole_list`, `/autorole_run` |
 
 ---
 
-## Requirements
+## Требования
 
 - Python 3.11+
-- Tesseract OCR installed on the system:
+- Tesseract OCR, установленный в системе:
   ```bash
   # Ubuntu/Debian
   sudo apt install tesseract-ocr
@@ -43,9 +43,9 @@ A full-featured Discord bot for the **Weeping Ghosts** corporation in Eve Echoes
 
 ---
 
-## Setup
+## Установка
 
-### 1. Clone & install dependencies
+### 1. Клонировать репозиторий и установить зависимости
 
 ```bash
 git clone https://github.com/AlyskaDrop/Discord-bot.git
@@ -53,40 +53,40 @@ cd Discord-bot
 pip install -r requirements.txt
 ```
 
-### 2. Create your `.env` file
+### 2. Создать файл `.env`
 
 ```bash
 cp .env.example .env
 ```
 
-Fill in all the required values:
+Заполните все обязательные поля:
 
-| Variable | Description |
+| Переменная | Описание |
 |---|---|
-| `DISCORD_TOKEN` | Bot token from [Discord Developer Portal](https://discord.com/developers/applications) |
-| `GUILD_ID` | Your server ID (right-click server → Copy Server ID) |
-| `OPENAI_API_KEY` | OpenAI API key (optional — powers the AI agent) |
-| `ADMIN_CHANNEL_ID` | Channel where admin notifications are sent |
-| `LOG_CHANNEL_ID` | Channel where action logs are posted |
-| `KILLBOARD_CHANNEL_ID` | Channel where approved kills are announced |
-| `ADMIN_ROLE_ID` | Discord Role ID for administrators |
-| `OFFICER_ROLE_ID` | Discord Role ID for officers |
-| `MEMBER_ROLE_ID` | Discord Role ID assigned on registration |
+| `DISCORD_TOKEN` | Токен бота из [Discord Developer Portal](https://discord.com/developers/applications) |
+| `GUILD_ID` | ID вашего сервера (ПКМ по серверу → Копировать ID сервера) |
+| `OPENAI_API_KEY` | API-ключ OpenAI (необязательно — используется ИИ-агентом) |
+| `ADMIN_CHANNEL_ID` | Канал для уведомлений администраторов |
+| `LOG_CHANNEL_ID` | Канал для публикации журнала действий |
+| `KILLBOARD_CHANNEL_ID` | Канал для анонсов подтверждённых убийств |
+| `ADMIN_ROLE_ID` | ID роли Discord для администраторов |
+| `OFFICER_ROLE_ID` | ID роли Discord для офицеров |
+| `MEMBER_ROLE_ID` | ID роли Discord, присваиваемой при регистрации |
 
-### 3. Discord Developer Portal settings
+### 3. Настройки Discord Developer Portal
 
-In the [Discord Developer Portal](https://discord.com/developers/applications):
+В [Discord Developer Portal](https://discord.com/developers/applications):
 
-1. **Bot** tab → enable **Server Members Intent** and **Message Content Intent**
-2. **OAuth2 → URL Generator** → select `bot` + `applications.commands` → grant permissions:
-   - Manage Roles
-   - Send Messages
-   - Embed Links
-   - Attach Files
-   - Read Message History
-   - Add Reactions
+1. Вкладка **Bot** → включить **Server Members Intent** и **Message Content Intent**
+2. **OAuth2 → URL Generator** → выбрать `bot` + `applications.commands` → выдать разрешения:
+   - Manage Roles (Управление ролями)
+   - Send Messages (Отправка сообщений)
+   - Embed Links (Встраивание ссылок)
+   - Attach Files (Прикрепление файлов)
+   - Read Message History (Чтение истории сообщений)
+   - Add Reactions (Добавление реакций)
 
-### 4. Run the bot
+### 4. Запустить бота
 
 ```bash
 python bot.py
@@ -94,15 +94,15 @@ python bot.py
 
 ---
 
-## Architecture
+## Архитектура
 
 ```
 Discord-bot/
-├── bot.py               # Entry point, bot class, cog loader
-├── config.py            # Configuration from .env
+├── bot.py               # Точка входа, класс бота, загрузчик когов
+├── config.py            # Конфигурация из .env
 ├── requirements.txt
 ├── .env.example
-├── data/                # SQLite database & log file (auto-created)
+├── data/                # База данных SQLite и лог-файл (создаются автоматически)
 ├── cogs/
 │   ├── registration.py  # /register, /profile
 │   ├── isk_counter.py   # /isk_count
@@ -114,42 +114,42 @@ Discord-bot/
 │   ├── calculators.py   # /calc_profit, /calc_implant, /calc_mining, /calc_production
 │   ├── killboard.py     # /killboard, /post_kill
 │   ├── ai_agent.py      # /ai, /ai_reset
-│   ├── admin.py         # /admin_* commands
-│   └── auto_roles.py    # /autorole_* commands
+│   ├── admin.py         # команды /admin_*
+│   └── auto_roles.py    # команды /autorole_*
 └── utils/
-    ├── database.py      # Async SQLite helper functions
-    └── ocr.py           # Screenshot / OCR parsing utilities
+    ├── database.py      # Асинхронные вспомогательные функции SQLite
+    └── ocr.py           # Утилиты для разбора скриншотов / OCR
 ```
 
 ---
 
-## Database
+## База данных
 
-The bot uses a local **SQLite** database (`data/weeping_ghosts.db`) with the following tables:
+Бот использует локальную базу данных **SQLite** (`data/weeping_ghosts.db`) со следующими таблицами:
 
-- `users` — registered members
-- `balance` — ISK balances
-- `transactions` — balance change log
-- `points` — PvP/PvE point totals
-- `kills` — submitted kill reports
-- `compensations` — ship loss requests
-- `orders` — corp mission board
-- `shop_items` — corp shop inventory
-- `auto_roles` — auto-role rules
-
----
-
-## OCR Accuracy Tips
-
-Screenshot quality directly affects OCR extraction accuracy:
-
-- Use **high-resolution** screenshots (not compressed)
-- Make sure the ISK/name text is **clearly visible** and not obscured
-- Screenshots should be in **PNG** format where possible
-- If OCR fails, you can always provide values manually via command parameters
+- `users` — зарегистрированные участники
+- `balance` — балансы ISK
+- `transactions` — журнал изменений баланса
+- `points` — суммарные очки PvP/PvE
+- `kills` — отправленные отчёты об убийствах
+- `compensations` — заявки на компенсацию потери корабля
+- `orders` — доска заданий корпорации
+- `shop_items` — ассортимент магазина корпорации
+- `auto_roles` — правила автоматического присвоения ролей
 
 ---
 
-## License
+## Советы по точности OCR
 
-MIT — see [LICENSE](LICENSE).
+Качество скриншота напрямую влияет на точность извлечения данных через OCR:
+
+- Используйте скриншоты в **высоком разрешении** (без сжатия)
+- Убедитесь, что текст ISK/имени **чётко виден** и ничем не перекрыт
+- По возможности сохраняйте скриншоты в формате **PNG**
+- Если OCR не справляется, значения всегда можно ввести вручную через параметры команды
+
+---
+
+## Лицензия
+
+MIT — см. [LICENSE](LICENSE).
